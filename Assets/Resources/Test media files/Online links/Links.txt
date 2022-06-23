@@ -1,0 +1,28 @@
+
+Image Test links:
+
+https://picsum.photos/240/540.jpg
+https://picsum.photos/480/1080.jpg
+
+Video test links:
+
+https://www.learningcontainer.com/mp4-sample-video-files-download/#
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-avi-file.avi
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-webm-file.webm
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mov-file.mov
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mpg-file.mpg
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-wmv-file.wmv
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-ogv-file.ogv
+
+RSS links:
+(Weather)
+Bruxelles National= http://www.rssweather.com/wx/be/bruxelles+national/wx.php
+http://www.rssweather.com/wx/be/charleroi/rss.php
+
+https://forecast.weather.gov/MapClick.php?lat=39.011&lon=-89.7915&FcstType=digitalDWML (Parsing Error)
+
+(Sample test)
+https://www.feedforall.com/sample.xml
+https://arminreiter.com/feed/
+http://forum.unity3d.com/rss.php (Parsing Error)
