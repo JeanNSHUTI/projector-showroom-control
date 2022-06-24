@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5823641831163611875, guid: 10bbba7a7a0f4224d8a7fb10edca606b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 220
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5823641831163611875, guid: 10bbba7a7a0f4224d8a7fb10edca606b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 520
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5823641831163611884, guid: 10bbba7a7a0f4224d8a7fb10edca606b, type: 3}
       propertyPath: m_Name
@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5823641831282846591, guid: 10bbba7a7a0f4224d8a7fb10edca606b, type: 3}
       propertyPath: m_panelResizableAreaLength
-      value: 80
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5823641831282846591, guid: 10bbba7a7a0f4224d8a7fb10edca606b, type: 3}
       propertyPath: PreventDetachingLastDockedPanel

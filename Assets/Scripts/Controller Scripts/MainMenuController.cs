@@ -44,29 +44,19 @@ public class MainMenuController : MonoBehaviour
     //Images
     public void ImportLocalFile()
     {
-        GameObject imagePrefab;
-        //Get output panel to view imported file
-        //SingletonController.instance.OutputPanel = GameObject.FindWithTag("OutputPanel");
         SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
-        //GameObject output_panel = GameObject.FindWithTag("OutputPanel");
-        //Instantiate new gameobject to hold imported media (image)
-        //GameObject imagePrefab = (GameObject)Instantiate(imageImportPrefab);
-        //GameObject imagePrefab = SingletonController.instance.getMediaObject(0);
-        //GameObject[] imagePrefabs = SingletonController.instance.getMediaObjects;
-        //GameObject imagePrefab = (GameObject)Instantiate(imagePrefabs[0], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
-        //GameObject imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
+
+        GameObject imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
         if (SingletonController.instance.IsResizablePanel)
         {
-            imagePrefab = AddTemplate(noOftemplates, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
-        }
-        else
-        {
-            imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
+            //imagePrefab = AddTemplate(noOftemplates, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
+            SingletonController.instance.setIsResizable(true, noOftemplates);
+            SingletonController.instance.IsResizablePanel = false; //reset
         }
 
         //SingletonController.instance.setMediaObject(imagePrefab, 0);
 
-            string fileName = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
+        string fileName = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
         if (File.Exists(fileName))
         {
             byte[] bytes = File.ReadAllBytes(fileName);
@@ -74,28 +64,13 @@ public class MainMenuController : MonoBehaviour
             Texture2D tex = new Texture2D(240,540);
             tex.LoadImage(bytes);
             //Debug.Log("Selected file: " + fileName);
-            //imagePrefab.GetComponent<RawImage>().texture = tex;
-            if (SingletonController.instance.IsResizablePanel)
-            {
-                imagePrefab.transform.Find("resizablePanel").GetComponent<RawImage>().texture = tex;
-            }
-            else
-            {
-                imagePrefab.GetComponent<RawImage>().texture = tex;
-            }
+            imagePrefab.GetComponent<RawImage>().texture = tex;
             SingletonController.instance.setImageTexture(tex, noOftemplates);
             string ext = Path.GetExtension(fileName);
             SingletonController.instance.setFileExtension(ext, noOftemplates);
             imagePrefab.transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
             SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
         }
-
-        //Debug.Log("data path: " + Application.persistentDataPath);     
-        //imagePrefab.transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
-        //SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
-        //imagePrefab.transform.SetParent(output_panel.transform, false);
-        //SingletonController.instance.getMediaObject(0).transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
-        //Debug.Log("Selected file: " + fileName);
 
     }
 
@@ -132,6 +107,12 @@ public class MainMenuController : MonoBehaviour
     public void ImportOnlineFile()
     {
         GameObject imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
+        if (SingletonController.instance.IsResizablePanel)
+        {
+            //imagePrefab = AddTemplate(noOftemplates, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
+            SingletonController.instance.setIsResizable(true, noOftemplates);
+            SingletonController.instance.IsResizablePanel = false; //reset
+        }
         GameObject urlInputField = GameObject.FindWithTag("URLInput");
         string url = urlInputField.GetComponent<InputField>().text;
         Debug.Log("Your URL: " + url);
@@ -244,14 +225,6 @@ public class MainMenuController : MonoBehaviour
         switch (noOftemplates)
         {
             case 0:
-                /*if (SingletonController.instance.IsResizablePanel)
-                {
-                    imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION_R, 0, 0), Quaternion.identity);
-                }
-                else 
-                { 
-                    imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
-                }*/
                 imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
                 break;
 
@@ -294,11 +267,10 @@ public class MainMenuController : MonoBehaviour
 
     public void OnSelectTemplateType(bool isResizable)
     {
-        //GameObject toggle = GameObject.FindWithTag("ToggleTemplate");
+        GameObject toggle = GameObject.FindWithTag("ToggleTemplate");
         if (isResizable)
         {
-            SingletonController.instance.IsResizablePanel = isResizable;
-            //SingletonController.instance.IsResizablePanel = isResizable;
+            SingletonController.instance.IsResizablePanel = toggle.GetComponent<Toggle>().isOn;
         }
     }
 

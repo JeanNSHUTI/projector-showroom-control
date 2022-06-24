@@ -96,7 +96,8 @@ public class HandleMoveSizeMedia : MonoBehaviour
     {
         /** Drag a UI element across the screen based on the mouse movement. **/
 
-        if(!(drag_element.tag == TagManager.DISPLAY_BACKGROUND))
+        //Controll what can be moved by user
+        if((drag_element.tag != TagManager.DISPLAY_BACKGROUND) && (drag_element.name != "resizablePanel"))
         {
             //Don't drag background
             RectTransform element_rect = drag_element.GetComponent<RectTransform>();
@@ -105,14 +106,7 @@ public class HandleMoveSizeMedia : MonoBehaviour
             element_rect.anchoredPosition = element_rect.anchoredPosition + drag_movement;
             //Debug.Log("Tag: " + drag_element.name);
         }
-        /*else
-        {
-            RectTransform element_rect = drag_element.GetComponent<RectTransform>();
 
-            Vector2 drag_movement = mouse_position - previous_mouse_position;
-            element_rect.anchoredPosition = element_rect.anchoredPosition + drag_movement;
-            Debug.Log("Tag: " + drag_element.name);
-        }*/
     }
 
 }

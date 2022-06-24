@@ -21,6 +21,7 @@ public class SingletonController : MonoBehaviour
     private string[] _fileExtensions;
     private int noOfelements;
     private bool isResizablePanel;
+    private bool[] isResizable;
 
     public string supportRSS = ".xml";
     public string[] supportedImageExts = { ".png", ".jpg"};
@@ -114,12 +115,23 @@ public class SingletonController : MonoBehaviour
         _fileExtensions[index] = path;
     }
 
+    public bool getIsResizable(int index)
+    {
+        return isResizable[index];
+    }
+
+    public void setIsResizable(bool resizable, int index)
+    {
+        isResizable[index] = resizable;
+    }
+
     private void Awake()
     {
         //Instantiate information arrays
         ImageTextures = new Texture2D[5];
         URLs = new string[5];
         FileExtensions = new string[5];
+        isResizable = new bool[5];
 
 
         //OutputPanel = GameObject.FindWithTag("OutputPanel");
@@ -162,7 +174,7 @@ public class SingletonController : MonoBehaviour
                 if (supportedImageExts.Contains(FileExtensions[i]))
                 {
                     GameObject imagePrefab;
-                    if (IsResizablePanel)
+                    if (getIsResizable(i))
                     {
                         imagePrefab = AddTemplate(i, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
                     }
@@ -171,14 +183,14 @@ public class SingletonController : MonoBehaviour
                         imagePrefab = AddTemplate(i, TagManager.IMAGE_PREFAB_INDEX);
                     }
                     //GameObject imagePrefab = AddTemplate(i, TagManager.IMAGE_PREFAB_INDEX);
-                    Set_Size(imagePrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION);
+                    Set_Size(imagePrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION, i);
                     DisplayPicture(imagePrefab, display_panel, i);
                 }
 
                 if (supportedVideoExts.Contains(FileExtensions[i]))
                 {
                     GameObject videoPrefab = AddTemplate(i, TagManager.VIDEO_PREFAB_INDEX);
-                    Set_Size(videoPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION);
+                    Set_Size(videoPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION, i);
                     DisplayVideo(videoPrefab, display_panel, i);
                 }
 
@@ -192,13 +204,13 @@ public class SingletonController : MonoBehaviour
                     if (dayOrnight.Equals("pm") && hour >= TagManager.NIGHT_TIME)
                     {
                         GameObject weatherPrefab = AddTemplate(i, TagManager.W_NIGHT_PREFAB_INDEX);
-                        Set_Size(weatherPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION);
+                        Set_Size(weatherPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION, i);
                         DisplayRssFeed(weatherPrefab, display_panel, i);
                     }
                     else
                     {
                         GameObject weatherPrefab = AddTemplate(i, TagManager.W_DAY_PREFAB_INDEX);
-                        Set_Size(weatherPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION);
+                        Set_Size(weatherPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION, i);
                         DisplayRssFeed(weatherPrefab, display_panel, i);
                     }
                 }
@@ -219,7 +231,7 @@ public class SingletonController : MonoBehaviour
 
     public void DisplayPicture(GameObject imagePrefab, GameObject displaypanel, int i)
     {
-        if (IsResizablePanel)
+        if (getIsResizable(i))
         {
             imagePrefab.transform.Find("resizablePanel").GetComponent<RawImage>().texture = getImageTexture(i);
         }
@@ -240,11 +252,11 @@ public class SingletonController : MonoBehaviour
         videoPrefab.transform.SetParent(displaypanel.transform, false);
     }
 
-    public static void Set_Size(GameObject gameObject, float width, float height)
+    public static void Set_Size(GameObject gameObject, float width, float height, int i)
     {
         if (gameObject != null)
         {
-            if (SingletonController.instance.IsResizablePanel)
+            if (SingletonController.instance.getIsResizable(i))
             {
                 var rectTransform = gameObject.GetComponent<RectTransform>();
                 if (rectTransform != null)
@@ -254,7 +266,7 @@ public class SingletonController : MonoBehaviour
                 rectTransform = gameObject.transform.Find("resizablePanel").GetComponent<RectTransform>();
                 if (rectTransform != null)
                 {
-                    rectTransform.sizeDelta = new Vector2(width-20, height-20);
+                    rectTransform.sizeDelta = new Vector2(width-40, height-40);
                 }
             }
             else
