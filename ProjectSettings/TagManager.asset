@@ -12,6 +12,7 @@ TagManager:
   - RssURLInput
   - ScrollView
   - DropDownDivide
+  - ToggleTemplate
   layers:
   - Default
   - TransparentFX

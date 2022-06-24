@@ -20,11 +20,17 @@ public class SingletonController : MonoBehaviour
     private string[] _URLs;
     private string[] _fileExtensions;
     private int noOfelements;
+    private bool isResizablePanel;
 
     public string supportRSS = ".xml";
     public string[] supportedImageExts = { ".png", ".jpg"};
     public string[] supportedVideoExts = { ".mov", ".mp4", ".asf", ".avi", ".m4v", ".dv", ".mpg", ".mpeg", ".ogv", ".vp8", ".webm", ".wmv" };
 
+    public bool IsResizablePanel
+    {
+        get { return isResizablePanel; }
+        set { isResizablePanel = value; }
+    }
 
     public int NoOfElements
     {
@@ -145,6 +151,7 @@ public class SingletonController : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        
         //if (scene.name == TagManager.SHOWROOM_SCENE_NAME)
         if (scene.name == TagManager.SHOWROOM_SCENE_NAME & NoOfElements > 0)
         {
@@ -154,17 +161,18 @@ public class SingletonController : MonoBehaviour
             {
                 if (supportedImageExts.Contains(FileExtensions[i]))
                 {
-                    //Instantiate(importMedia[0]);
-                    //GameObject imagePrefab = getMediaObjects[0];
-                    //GameObject imagePrefab = (GameObject)Instantiate(importMedia[0], new Vector3(TagManager.DISPLAY_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
-                    GameObject imagePrefab = AddTemplate(i, TagManager.IMAGE_PREFAB_INDEX);
+                    GameObject imagePrefab;
+                    if (IsResizablePanel)
+                    {
+                        imagePrefab = AddTemplate(i, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
+                    }
+                    else
+                    {
+                        imagePrefab = AddTemplate(i, TagManager.IMAGE_PREFAB_INDEX);
+                    }
+                    //GameObject imagePrefab = AddTemplate(i, TagManager.IMAGE_PREFAB_INDEX);
                     Set_Size(imagePrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION);
-                    //GameObject display_panel = GameObject.FindWithTag("DisplayPanel");
-                    //imagePrefab.GetComponent<RawImage>().texture = _imageTexture;
                     DisplayPicture(imagePrefab, display_panel, i);
-                    //imagePrefab.GetComponent<RawImage>().texture = getImageTexture(i);
-                    //imagePrefab.transform.SetParent(display_panel.transform, false);
-                    //_checkIfTemplateAdded++;
                 }
 
                 if (supportedVideoExts.Contains(FileExtensions[i]))
@@ -211,7 +219,14 @@ public class SingletonController : MonoBehaviour
 
     public void DisplayPicture(GameObject imagePrefab, GameObject displaypanel, int i)
     {
-        imagePrefab.GetComponent<RawImage>().texture = getImageTexture(i);
+        if (IsResizablePanel)
+        {
+            imagePrefab.transform.Find("resizablePanel").GetComponent<RawImage>().texture = getImageTexture(i);
+        }
+        else
+        {
+            imagePrefab.GetComponent<RawImage>().texture = getImageTexture(i);
+        }            
         imagePrefab.transform.SetParent(displaypanel.transform, false);
     }
 
@@ -229,11 +244,28 @@ public class SingletonController : MonoBehaviour
     {
         if (gameObject != null)
         {
-            var rectTransform = gameObject.GetComponent<RectTransform>();
-            if (rectTransform != null)
+            if (SingletonController.instance.IsResizablePanel)
             {
-                rectTransform.sizeDelta = new Vector2(width, height);
+                var rectTransform = gameObject.GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    rectTransform.sizeDelta = new Vector2(width, height);
+                }
+                rectTransform = gameObject.transform.Find("resizablePanel").GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    rectTransform.sizeDelta = new Vector2(width-20, height-20);
+                }
             }
+            else
+            {
+                var rectTransform = gameObject.GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    rectTransform.sizeDelta = new Vector2(width, height);
+                }
+            }
+
         }
     }
 

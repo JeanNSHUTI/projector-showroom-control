@@ -44,6 +44,7 @@ public class MainMenuController : MonoBehaviour
     //Images
     public void ImportLocalFile()
     {
+        GameObject imagePrefab;
         //Get output panel to view imported file
         //SingletonController.instance.OutputPanel = GameObject.FindWithTag("OutputPanel");
         SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
@@ -53,18 +54,35 @@ public class MainMenuController : MonoBehaviour
         //GameObject imagePrefab = SingletonController.instance.getMediaObject(0);
         //GameObject[] imagePrefabs = SingletonController.instance.getMediaObjects;
         //GameObject imagePrefab = (GameObject)Instantiate(imagePrefabs[0], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
-        GameObject imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
+        //GameObject imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
+        if (SingletonController.instance.IsResizablePanel)
+        {
+            imagePrefab = AddTemplate(noOftemplates, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
+        }
+        else
+        {
+            imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
+        }
 
         //SingletonController.instance.setMediaObject(imagePrefab, 0);
 
-        string fileName = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
+            string fileName = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
         if (File.Exists(fileName))
         {
             byte[] bytes = File.ReadAllBytes(fileName);
-            Texture2D tex = new Texture2D(2, 2);
+            //Texture2D tex = new Texture2D(2, 2);
+            Texture2D tex = new Texture2D(240,540);
             tex.LoadImage(bytes);
             //Debug.Log("Selected file: " + fileName);
-            imagePrefab.GetComponent<RawImage>().texture = tex;
+            //imagePrefab.GetComponent<RawImage>().texture = tex;
+            if (SingletonController.instance.IsResizablePanel)
+            {
+                imagePrefab.transform.Find("resizablePanel").GetComponent<RawImage>().texture = tex;
+            }
+            else
+            {
+                imagePrefab.GetComponent<RawImage>().texture = tex;
+            }
             SingletonController.instance.setImageTexture(tex, noOftemplates);
             string ext = Path.GetExtension(fileName);
             SingletonController.instance.setFileExtension(ext, noOftemplates);
@@ -226,11 +244,19 @@ public class MainMenuController : MonoBehaviour
         switch (noOftemplates)
         {
             case 0:
+                /*if (SingletonController.instance.IsResizablePanel)
+                {
+                    imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION_R, 0, 0), Quaternion.identity);
+                }
+                else 
+                { 
+                    imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
+                }*/
                 imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
                 break;
 
             case 1:
-                imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION + (noOftemplates*TagManager.NEXT_POS_PANEL), 0, 0), Quaternion.identity);
+                imagePrefab = (GameObject)Instantiate(prefabs[mediaObject], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION + (noOftemplates * TagManager.NEXT_POS_PANEL), 0, 0), Quaternion.identity);
                 break;
 
             case 2:
@@ -264,6 +290,16 @@ public class MainMenuController : MonoBehaviour
             Debug.Log("Select divide by 4");
         }
 
+    }
+
+    public void OnSelectTemplateType(bool isResizable)
+    {
+        //GameObject toggle = GameObject.FindWithTag("ToggleTemplate");
+        if (isResizable)
+        {
+            SingletonController.instance.IsResizablePanel = isResizable;
+            //SingletonController.instance.IsResizablePanel = isResizable;
+        }
     }
 
 }

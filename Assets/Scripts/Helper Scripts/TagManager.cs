@@ -11,6 +11,7 @@ public static class TagManager
     public static string OUTPUT_PANEL_NAME = "OutputPanel";
     public const string NAN = "NaN";
 
+    public static int PANEL_TEMPLATE_START_POSITION_R = 0; //For resize panels
     public static int PANEL_TEMPLATE_START_POSITION = -360;
     public static int DISPLAY_TEMPLATE_START_POSITION = -720;
     public static int NEXT_POS_DISPLAY = 480;
@@ -21,5 +22,6 @@ public static class TagManager
     public static int VIDEO_PREFAB_INDEX = 1;
     public static int W_NIGHT_PREFAB_INDEX = 2;
     public static int W_DAY_PREFAB_INDEX = 3;
+    public static int JUMP_PREFAB_PICKER = 4;
     public static int NIGHT_TIME = 8;
 }
