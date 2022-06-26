@@ -133,7 +133,6 @@ public class SingletonController : MonoBehaviour
         FileExtensions = new string[5];
         isResizable = new bool[5];
 
-
         //OutputPanel = GameObject.FindWithTag("OutputPanel");
         if (instance == null)
         {
@@ -156,10 +155,6 @@ public class SingletonController : MonoBehaviour
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
-    /*void Update()
-    {
-        NoOfElements = OutputPanel.transform.childCount;
-    }*/
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
@@ -189,7 +184,16 @@ public class SingletonController : MonoBehaviour
 
                 if (supportedVideoExts.Contains(FileExtensions[i]))
                 {
-                    GameObject videoPrefab = AddTemplate(i, TagManager.VIDEO_PREFAB_INDEX);
+                    GameObject videoPrefab;
+                    if (getIsResizable(i))
+                    {
+                        videoPrefab = AddTemplate(i, (TagManager.VIDEO_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
+                    }
+                    else
+                    {
+                        videoPrefab = AddTemplate(i, TagManager.VIDEO_PREFAB_INDEX);
+                    }
+                    //videoPrefab = AddTemplate(i, TagManager.VIDEO_PREFAB_INDEX);
                     Set_Size(videoPrefab, TagManager.NEXT_POS_DISPLAY, TagManager.Y_RESOLUTION, i);
                     DisplayVideo(videoPrefab, display_panel, i);
                 }
@@ -245,10 +249,22 @@ public class SingletonController : MonoBehaviour
     public void DisplayVideo(GameObject videoPrefab, GameObject displaypanel, int i)
     {
         RenderTexture rt = new RenderTexture(240, 540, 16, RenderTextureFormat.ARGB32);
-        videoPrefab.GetComponent<VideoPlayer>().targetTexture = rt;
-        videoPrefab.GetComponent<RawImage>().texture = rt;
-        videoPrefab.GetComponent<VideoPlayer>().source = VideoSource.Url;
-        videoPrefab.GetComponent<VideoPlayer>().url = getURL(i);
+        {
+            if (getIsResizable(i))
+            {
+                videoPrefab.transform.Find("resizablePanel").GetComponent<VideoPlayer>().targetTexture = rt;
+                videoPrefab.transform.Find("resizablePanel").GetComponent<RawImage>().texture = rt;
+                videoPrefab.transform.Find("resizablePanel").GetComponent<VideoPlayer>().source = VideoSource.Url;
+                videoPrefab.transform.Find("resizablePanel").GetComponent<VideoPlayer>().url = getURL(i);
+            }
+            else
+            {
+                videoPrefab.GetComponent<VideoPlayer>().targetTexture = rt;
+                videoPrefab.GetComponent<RawImage>().texture = rt;
+                videoPrefab.GetComponent<VideoPlayer>().source = VideoSource.Url;
+                videoPrefab.GetComponent<VideoPlayer>().url = getURL(i);
+            }
+        }
         videoPrefab.transform.SetParent(displaypanel.transform, false);
     }
 

@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.Video;
+using SFB;
+
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
 
 public class MainMenuController : MonoBehaviour
@@ -56,21 +60,29 @@ public class MainMenuController : MonoBehaviour
 
         //SingletonController.instance.setMediaObject(imagePrefab, 0);
 
-        string fileName = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
-        if (File.Exists(fileName))
+        //string fileName = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
+        var fileName = StandaloneFileBrowser.OpenFilePanel("Title", "", "", false);
+        if (fileName.Length > 0)
         {
-            byte[] bytes = File.ReadAllBytes(fileName);
-            //Texture2D tex = new Texture2D(2, 2);
-            Texture2D tex = new Texture2D(240,540);
-            tex.LoadImage(bytes);
-            //Debug.Log("Selected file: " + fileName);
-            imagePrefab.GetComponent<RawImage>().texture = tex;
-            SingletonController.instance.setImageTexture(tex, noOftemplates);
-            string ext = Path.GetExtension(fileName);
-            SingletonController.instance.setFileExtension(ext, noOftemplates);
-            imagePrefab.transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
-            SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
+            if (File.Exists(fileName[0]))
+            {
+                byte[] bytes = File.ReadAllBytes(fileName[0]);
+                //Texture2D tex = new Texture2D(2, 2);
+                Texture2D tex = new Texture2D(240, 540);
+                tex.LoadImage(bytes);
+                //Debug.Log("Selected file: " + fileName);
+                imagePrefab.GetComponent<RawImage>().texture = tex;
+                SingletonController.instance.setImageTexture(tex, noOftemplates);
+                string ext = Path.GetExtension(fileName[0]);
+                SingletonController.instance.setFileExtension(ext, noOftemplates);
+                imagePrefab.transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
+                SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
+            }
         }
+        /*else
+        {
+            Debug.Log("No file selected");
+        }*/
 
     }
 
@@ -83,25 +95,36 @@ public class MainMenuController : MonoBehaviour
         //GameObject videoPrefab = (GameObject)Instantiate(prefabs[1], new Vector3(TagManager.PANEL_TEMPLATE_START_POSITION, 0, 0), Quaternion.identity);
         GameObject videoPrefab = AddTemplate(noOftemplates, TagManager.VIDEO_PREFAB_INDEX);
         videoPrefab.GetComponent<VideoPlayer>().source = VideoSource.Url;
-
-
-        string url = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
-        string path = "file:///" + url;
-        if (File.Exists(url))
+        if (SingletonController.instance.IsResizablePanel)
         {
-            RenderTexture rt = new RenderTexture(240, 540, 16, RenderTextureFormat.ARGB32);
-            SingletonController.instance.setURL(path, noOftemplates);
-            string ext = Path.GetExtension(url);
-            SingletonController.instance.setFileExtension(ext, noOftemplates);
-            videoPrefab.GetComponent<VideoPlayer>().targetTexture = rt;
-            videoPrefab.GetComponent<RawImage>().texture = rt;
-            videoPrefab.GetComponent<VideoPlayer>().url = path;
-            videoPrefab.GetComponent<VideoPlayer>().Pause();
-            videoPrefab.transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
-            SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
+            SingletonController.instance.setIsResizable(true, noOftemplates);
+            SingletonController.instance.IsResizablePanel = false; //reset
         }
-        Debug.Log("Selected file: " + path);
-        
+
+
+        //string url = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
+        var url = StandaloneFileBrowser.OpenFilePanel("Title", "", "", true);
+        if (url.Length > 0)
+        {
+            string path = "file:///" + url[0];
+            if (File.Exists(url[0]))
+            {
+                RenderTexture rt = new RenderTexture(240, 540, 16, RenderTextureFormat.ARGB32);
+                SingletonController.instance.setURL(path, noOftemplates);
+                string ext = Path.GetExtension(url[0]);
+                SingletonController.instance.setFileExtension(ext, noOftemplates);
+                videoPrefab.GetComponent<VideoPlayer>().targetTexture = rt;
+                videoPrefab.GetComponent<RawImage>().texture = rt;
+                videoPrefab.GetComponent<VideoPlayer>().url = path;
+                videoPrefab.GetComponent<VideoPlayer>().Pause();
+                videoPrefab.transform.SetParent(SingletonController.instance.OutputPanel.transform, false);
+                SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
+            }
+        }
+        /*else
+        {
+            Debug.Log("No file selected");
+        }*/      
     }
 
     public void ImportOnlineFile()
@@ -109,7 +132,6 @@ public class MainMenuController : MonoBehaviour
         GameObject imagePrefab = AddTemplate(noOftemplates, TagManager.IMAGE_PREFAB_INDEX);
         if (SingletonController.instance.IsResizablePanel)
         {
-            //imagePrefab = AddTemplate(noOftemplates, (TagManager.IMAGE_PREFAB_INDEX + TagManager.JUMP_PREFAB_PICKER));
             SingletonController.instance.setIsResizable(true, noOftemplates);
             SingletonController.instance.IsResizablePanel = false; //reset
         }
@@ -127,11 +149,15 @@ public class MainMenuController : MonoBehaviour
     {
         RenderTexture rt = new RenderTexture(240, 540, 16, RenderTextureFormat.ARGB32);
         GameObject videoPrefab = AddTemplate(noOftemplates, TagManager.VIDEO_PREFAB_INDEX);
+        {
+            SingletonController.instance.setIsResizable(true, noOftemplates);
+            SingletonController.instance.IsResizablePanel = false; //reset
+        }
         videoPrefab.GetComponent<VideoPlayer>().targetTexture = rt;
         videoPrefab.GetComponent<RawImage>().texture = rt;
         GameObject urlInputField = GameObject.FindWithTag("VideoURLInput");
         string url = urlInputField.GetComponent<InputField>().text;
-        Debug.Log("Your URL: " + url);
+        //Debug.Log("Your URL: " + url);
         SingletonController.instance.setURL(url, noOftemplates);
         string ext = Path.GetExtension(url);
         if (ext == "") { ext = ".mov"; }  // if https link does not have extension => add dummy record to be treated as video
@@ -272,6 +298,13 @@ public class MainMenuController : MonoBehaviour
         {
             SingletonController.instance.IsResizablePanel = toggle.GetComponent<Toggle>().isOn;
         }
+    }
+
+    public void doExitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game is exiting");
+        //Just to make sure its working
     }
 
 }

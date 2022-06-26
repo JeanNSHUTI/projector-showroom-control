@@ -84,10 +84,10 @@ public class rssreader
 				itm.title = nodeItem["title"].InnerText;
 				itm.link = nodeItem["link"].InnerText;
 				itm.category = nodeItem["category"].InnerText;
-				itm.creator = nodeItem["dc:creator"].InnerText;
-				itm.guid = nodeItem["guid"].InnerText;
-				itm.pubDate = nodeItem["pubDate"].InnerText;
-				itm.description = nodeItem["description"].InnerText;
+				//itm.creator = nodeItem["dc:creator"].InnerText;
+				//itm.guid = nodeItem["guid"].InnerText;
+				//itm.pubDate = nodeItem["pubDate"].InnerText;
+				//itm.description = nodeItem["description"].InnerText;
 				// add the item to the channel items list
 				rowNews.item.Add(itm);
 			}

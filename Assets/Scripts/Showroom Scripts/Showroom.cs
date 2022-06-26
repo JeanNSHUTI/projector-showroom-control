@@ -7,9 +7,13 @@ using UnityEngine.InputSystem;
 public class Showroom : MonoBehaviour
 {
     PlayerControls playerControls;
+    //private int defWidth;
+    //private int defHeight;
 
     private void Awake()
     {
+        //defWidth = Screen.width;
+        //defHeight = Screen.height;
         playerControls = new PlayerControls();
     }
 
@@ -26,14 +30,22 @@ public class Showroom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //Make sure showroom is full screen even in windowed mode
+        /*if (!Screen.fullScreen)
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+        }
+        else
+        {
+            Screen.SetResolution(defWidth, defHeight, false);
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
         HandleUserExit();
-        
+
     }
 
     public void HandleUserExit()

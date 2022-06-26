@@ -8,7 +8,7 @@ public class rsstester : MonoBehaviour
 	void Start ()
 	{
 		// connect to the rss feed and pull it
-		rdr = new rssreader("http://forum.unity3d.com/rss.php");
+		rdr = new rssreader("https://www.feedforall.com/sample.xml");
 
 		// show feed header
 		Debug.Log("Title: "+rdr.rowNews.title);
