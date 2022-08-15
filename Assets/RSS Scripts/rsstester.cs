@@ -8,24 +8,24 @@ public class rsstester : MonoBehaviour
 	void Start ()
 	{
 		// connect to the rss feed and pull it
-		rdr = new rssreader("https://www.feedforall.com/sample.xml");
+		rdr = new rssreader("https://rss.accuweather.com/rss/liveweather_rss.asp?locCode=11210 ");
 
 		// show feed header
 		Debug.Log("Title: "+rdr.rowNews.title);
 		Debug.Log("Link: "+rdr.rowNews.link);
 		Debug.Log("Description: "+rdr.rowNews.description);
-		Debug.Log("Docs: "+rdr.rowNews.docs);
-		Debug.Log("Last Build Date: "+rdr.rowNews.lastBuildDate);
-		Debug.Log("Managing Editor: " + rdr.rowNews.managingEditor);
-		Debug.Log("Web Master: " + rdr.rowNews.webMaster);
+		//Debug.Log("Docs: "+rdr.rowNews.docs);
+		//Debug.Log("Last Build Date: "+rdr.rowNews.lastBuildDate);
+		//Debug.Log("Managing Editor: " + rdr.rowNews.managingEditor);
+		//Debug.Log("Web Master: " + rdr.rowNews.webMaster);
 
 		// now display the feed items
 		foreach(rssreader.items itm in rdr.rowNews.item)
 		{
 			Debug.Log("Item Title: " + itm.title);
-			Debug.Log("Item Category: " + itm.category);
-			Debug.Log("Item Creator: " + itm.creator);
-			Debug.Log("Item guid: " + itm.guid);
+			//Debug.Log("Item Category: " + itm.category);
+			//Debug.Log("Item Creator: " + itm.creator);
+			//Debug.Log("Item guid: " + itm.guid);
 			Debug.Log("Item link: " + itm.link);
 			Debug.Log("Item publication date: " + itm.pubDate);
 			Debug.Log("Item description: " + itm.description);

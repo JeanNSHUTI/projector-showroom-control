@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 1925937171}
   - component: {fileID: 1925937170}
   m_Layer: 0
-  m_Name: Handle User Edit
+  m_Name: Handle User Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,6 +770,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui_canvas: {fileID: 1091027961}
+  lineWidth: 0.1
+  handlerSize: 0.2
+  isBeingResized: 0
+  m_panelResizableAreaLength: 12
 --- !u!4 &1925937171
 Transform:
   m_ObjectHideFlags: 0

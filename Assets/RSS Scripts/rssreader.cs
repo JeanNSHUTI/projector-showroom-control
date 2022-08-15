@@ -70,10 +70,10 @@ public class rssreader
 		rowNews.title = nodeChannel["title"].InnerText;
 		rowNews.link = nodeChannel["link"].InnerText;
 		rowNews.description = nodeChannel["description"].InnerText;
-		rowNews.docs = nodeChannel["docs"].InnerText;
-		rowNews.lastBuildDate = nodeChannel["lastBuildDate"].InnerText;
-		rowNews.managingEditor = nodeChannel["managingEditor"].InnerText;
-		rowNews.webMaster = nodeChannel["webMaster"].InnerText;
+		//rowNews.docs = nodeChannel["docs"].InnerText;
+		//rowNews.lastBuildDate = nodeChannel["lastBuildDate"].InnerText;
+		//rowNews.managingEditor = nodeChannel["managingEditor"].InnerText;
+		//rowNews.webMaster = nodeChannel["webMaster"].InnerText;
 
 		// here we have our feed items
 		for (int i = 0; i < nodeChannel.ChildNodes.Count; i++) {
@@ -83,11 +83,11 @@ public class rssreader
 				items itm = new items();
 				itm.title = nodeItem["title"].InnerText;
 				itm.link = nodeItem["link"].InnerText;
-				itm.category = nodeItem["category"].InnerText;
+				//itm.category = nodeItem["category"].InnerText;
 				//itm.creator = nodeItem["dc:creator"].InnerText;
 				//itm.guid = nodeItem["guid"].InnerText;
-				//itm.pubDate = nodeItem["pubDate"].InnerText;
-				//itm.description = nodeItem["description"].InnerText;
+				itm.pubDate = nodeItem["pubDate"].InnerText;
+				itm.description = nodeItem["description"].InnerText;
 				// add the item to the channel items list
 				rowNews.item.Add(itm);
 			}

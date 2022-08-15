@@ -10,6 +10,8 @@ public static class TagManager
     public static string MAIN_MENU_SCENE_NAME = "MainShowroomGUI";
     public static string OUTPUT_PANEL_NAME = "OutputPanel";
     public const string NAN = "NaN";
+    public const string SPECIAL_T_CIRCLE = "C";
+    public const string SPECIAL_T_TRIANGLE = "T";
 
     public static int PANEL_TEMPLATE_START_POSITION_R = 0; //For resize panels
     public static int PANEL_TEMPLATE_START_POSITION = -360;
@@ -18,10 +20,16 @@ public static class TagManager
     public static int NEXT_POS_PANEL = 240;
     public static int Y_RESOLUTION = 1080;
     public static int X_RESOLUTION = 1920;
+    public static int PANEL_Y_RESOLUTION = 540;
+    public static int PANEL_X_RESOLUTION = 960;
     public static int IMAGE_PREFAB_INDEX = 0;
     public static int VIDEO_PREFAB_INDEX = 1;
     public static int W_NIGHT_PREFAB_INDEX = 2;
     public static int W_DAY_PREFAB_INDEX = 3;
+    public static int I_CIRCLE_PREFAB_INDEX = 4;
+    public static int V_CIRCLE_PREFAB_INDEX = 5;
+    public static int I_TRIANGLE_PREFAB_INDEX = 6;
+    public static int V_TRIANGLE_PREFAB_INDEX = 7;
     public static int JUMP_PREFAB_PICKER = 4;
-    public static int NIGHT_TIME = 8;
+    public static int NIGHT_TIME = 20;
 }

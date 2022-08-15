@@ -13,6 +13,9 @@ TagManager:
   - ScrollView
   - DropDownDivide
   - ToggleTemplate
+  - Border
+  - Circle
+  - Triangle
   layers:
   - Default
   - TransparentFX
