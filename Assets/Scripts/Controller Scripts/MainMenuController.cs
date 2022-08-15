@@ -585,7 +585,7 @@ public class MainMenuController : MonoBehaviour
         //Get RSS feed in xml format
 
         //Debug.Log("Your day or night: " + dayOrnight);
-        //Debug.Log("Your hour: " + hour);
+        Debug.Log("Your hour: " + hour);
         SingletonController.instance.setURL(url, noOftemplates);
         string ext = ".xml";
 
@@ -616,7 +616,7 @@ public class MainMenuController : MonoBehaviour
     {
         SingletonController.instance.setFileExtension(ext, noOftemplates);
 
-        if (dayOrnight.Equals("pm") && hour >= TagManager.NIGHT_TIME)
+        if (dayOrnight.Equals("pm") && hour >= TagManager.NIGHT_TIME && hour != 12)
         {
             //Night widget
             GameObject weatherPrefab = AddTemplate(index, TagManager.W_NIGHT_PREFAB_INDEX);

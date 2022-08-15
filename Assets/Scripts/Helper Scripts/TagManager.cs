@@ -31,5 +31,5 @@ public static class TagManager
     public static int I_TRIANGLE_PREFAB_INDEX = 6;
     public static int V_TRIANGLE_PREFAB_INDEX = 7;
     public static int JUMP_PREFAB_PICKER = 4;
-    public static int NIGHT_TIME = 20;
+    public static int NIGHT_TIME = 8;
 }
