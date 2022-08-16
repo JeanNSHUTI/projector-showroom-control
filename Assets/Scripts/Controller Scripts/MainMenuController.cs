@@ -464,7 +464,7 @@ public class MainMenuController : MonoBehaviour
         if (ext == "") { ext = ".png"; }  // if https link does not have extension => add dummy record to be treated as image
         SingletonController.instance.setFileExtension(ext, index);
         StartCoroutine(GetText(index, url, imagePrefab, SingletonController.instance.OutputPanel));
-        CheckCurrentShape(index);
+       // CheckCurrentShape(index);
     }
 
     public void ImportOnlineVideoFile()
@@ -707,6 +707,7 @@ public class MainMenuController : MonoBehaviour
             
             SingletonController.instance.NoOfElements = SingletonController.instance.OutputPanel.transform.childCount;
             ResetShapeSelectFlags();
+            CheckCurrentShape(index);
         }
 
     }
@@ -853,8 +854,10 @@ public class MainMenuController : MonoBehaviour
     {
         //if (SingletonController.instance.LoadAFile)
         //{
+        //Debug.Log(mtemplate);
         if (SingletonController.instance.OutputPanel.transform.Find(mtemplate.ToString()).GetComponent<Image>() != null)
         {
+            
             if (SingletonController.instance.OutputPanel.transform.Find(mtemplate.ToString()).GetComponent<Image>().sprite.name.Equals("OvalMask 1"))
             {
                 //Debug.Log("Circle");
