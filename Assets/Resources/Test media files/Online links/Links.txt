@@ -2,6 +2,7 @@
 Image Test links:
 
 https://picsum.photos/240/540.jpg
+https://picsum.photos/480/540.jpg
 https://picsum.photos/480/1080.jpg
 
 Video test links:
@@ -17,12 +18,18 @@ https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-ogv-file.ogv
 
 RSS links:
 (Weather)
-Bruxelles National= http://www.rssweather.com/wx/be/bruxelles+national/wx.php
-http://www.rssweather.com/wx/be/charleroi/rss.php
+accuweather code 27581 (Brussels)
+accuweather code 27243  (Tubize)
 
-https://forecast.weather.gov/MapClick.php?lat=39.011&lon=-89.7915&FcstType=digitalDWML (Parsing Error)
+https://rss.accuweather.com/rss/liveweather_rss.asp?locCode=11210  (New York)
+https://rss.accuweather.com/rss/liveweather_rss.asp?locCode=334651 (Lake Worth, FL)
+https://rss.accuweather.com/rss/liveweather_rss.asp?locCode=123094 (Schenectady, NY)
+https://rss.accuweather.com/rss/liveweather_rss.asp?locCode=335734  (Sun City Center, FL)
 
-(Sample test)
+http://www.rssweather.com/wx/be/charleroi/rss.php (error)
+
+(Sample rss test)
 https://www.feedforall.com/sample.xml
 https://arminreiter.com/feed/
-http://forum.unity3d.com/rss.php (Parsing Error)
+
+
