@@ -2646,50 +2646,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257743390}
   m_CullTransparentMesh: 1
---- !u!1 &1291106237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1291106239}
-  - component: {fileID: 1291106238}
-  m_Layer: 0
-  m_Name: Resize Showroom Handler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1291106238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291106237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5643dbabf8d218c4aad953eee4f734c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentCenter: {x: 0, y: 0, z: 0}
---- !u!4 &1291106239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291106237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1294045596
 GameObject:
   m_ObjectHideFlags: 0
@@ -4388,7 +4344,7 @@ MonoBehaviour:
   - {fileID: 8498773210200425684, guid: a3ce5ac3a6f31c64e9c27b0c7b68acbc, type: 3}
   - {fileID: 6248520464440169927, guid: ddecc7d08e76a594d9ecd64e5266fe82, type: 3}
   - {fileID: 3018426514212981916, guid: b475af76bbe629748ad0a2e963c0bef5, type: 3}
-  handler: {fileID: 1291106237}
+  handler: {fileID: 0}
   supportRSS: .xml
   supportedImageExts:
   - .png
